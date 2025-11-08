@@ -1,0 +1,19 @@
+name: Deploy to Google Cloud Run
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy org-app
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: org-app
+          region: asia-south1
+          image: asia-south1-docker.pkg.dev/orgapp-demo/orgapp-repo/org-app:latest
